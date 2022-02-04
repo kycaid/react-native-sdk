@@ -44,30 +44,6 @@ const KYCaidComponent: FC<Props> = ({
     }
   }, [verificationData?.verification_id]);
 
-  const onMessage = (event: any) => {
-    console.log('NR RECEIVE MESSAGE: ', event.nativeEvent.data);
-
-    try {
-      const message = JSON.parse(event.nativeEvent.data);
-
-      if (message.type === 'kycaid:forms:completed') {
-        generatedForm?.verification_id && dispatch(getVerification({
-          api_url: config.api_url,
-          api_token: config.api_token,
-          verification_id: generatedForm.verification_id,
-        }));
-      }
-
-    } catch (e) {
-      console.error(`Error during parse post message: ${e.message} ${e.stack}`);
-    }
-  };
-
-  const onLoadEnd = () => {
-    // @ts-ignore
-    webviewRef?.current?.postMessage(JSON.stringify({ type: 'kycaid:rn:ready' }));
-  };
-
   const onNavigationStateChange = (event: any) => {
     if (event?.url === config.response_url) {
       if (generatedForm?.verification_id) {
@@ -85,8 +61,6 @@ const KYCaidComponent: FC<Props> = ({
       ref={() => webviewRef}
       mediaPlaybackRequiresUserAction={true}
       source={{ uri: generatedForm?.form_url || '' }}
-      onMessage={onMessage}
-      onLoadEnd={onLoadEnd}
       onNavigationStateChange={onNavigationStateChange}
     />
   );

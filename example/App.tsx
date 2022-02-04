@@ -5,6 +5,7 @@ import {
   StyleSheet,
   SafeAreaView,
   Platform,
+  Alert
 } from 'react-native';
 import { KYCAID, VerificationData } from '@kycaid/react-native-sdk'
 
@@ -12,6 +13,19 @@ function App() {
   const handleVerificationCallback = (data?: VerificationData) => {
     console.log(`Callback successfully received!`);
     console.log(`Verification ${data?.verification_id} has status: ${data?.status}`);
+
+    Alert.alert(
+        "Callback successfully received!",
+        `Verification ${data?.verification_id} has status: ${data?.status}`,
+        [
+          {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          { text: "OK", onPress: () => console.log("OK Pressed") }
+        ]
+    );
   };
 
   LogBox.ignoreAllLogs();
@@ -20,9 +34,19 @@ function App() {
     <SafeAreaView style={styles.container}>
       <KYCAID
         config={{
-          api_token: '<api_token>',
-          form_id: '<form_id>',
-          response_url: '<response_url>',
+          // api_url: 'https://api.kycaid.com',
+          // api_token: '***REMOVED***',
+          // form_id: '***REMOVED***',
+            // api_token: '***REMOVED***',
+            // form_id: '***REMOVED***',
+          api_url: 'https://stg-api.kycaid.com',
+          api_token: '***REMOVED***',
+          form_id: '***REMOVED***',
+          // applicant_id: '***REMOVED***',
+            // api_url: 'https://192.168.0.115:3005',
+            // api_token: '***REMOVED***',
+            // form_id: '***REMOVED***',
+            response_url: 'https://www.google.com/',
         }}
         verificationCallback={handleVerificationCallback}
       />
@@ -32,7 +56,7 @@ function App() {
 
 export default withNavigationItem({
   titleItem: {
-    title: 'Example App',
+    title: 'KYCAID SDK',
   },
 })(App)
 

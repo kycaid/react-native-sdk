@@ -1936,9 +1936,9 @@
   "version" "6.2.0"
 
 "caniuse-lite@^1.0.30001181":
-  "integrity" "sha512-r5GGgESqOPZzwvdLVER374FpQu2WluCF1Z2DSiFJ89KSmGjT0LVKjgv4NcAqHmGWF9ihNpqRI9KXO9Ex4sKsgA=="
-  "resolved" "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001198.tgz"
-  "version" "1.0.30001198"
+  "integrity" "sha512-bdsfZd6K6ap87AGqSHJP/s1V+U6Z5lyrcbBu3ovbCCf8cSYpwTtGrCBObMpJqwxfTbLW6YTIdbb1jEeTelcpYQ=="
+  "resolved" "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001304.tgz"
+  "version" "1.0.30001304"
 
 "capture-exit@^2.0.0":
   "integrity" "sha512-PiT/hQmTonHhl/HFGN+Lx3JJUznrVYJ3+AQsnthneZbvW7x+f08Tk7yLJTLEOUvBTbduLeeBkxEaYXUOUrRq6g=="
@@ -5179,15 +5179,15 @@
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-17.0.1.tgz"
   "version" "17.0.1"
 
-"react-native-webview@^11.2.4":
-  "integrity" "sha512-8C0HHNVhM3GlhtC30fO+sbH5J83zTRdi5qzdP2IvDV9tS0S0ZNPi97GJHjcIRc4dAtIoyn6NHdN5xREKGQZU9w=="
-  "resolved" "https://registry.npmjs.org/react-native-webview/-/react-native-webview-11.2.4.tgz"
-  "version" "11.2.4"
+"react-native-webview@^11.17.1":
+  "integrity" "sha512-gGdBavATj8Mya2VYZtWtB9cgOAgVJJGlgL5mo/EO8quBeI5L3IBy2ZQolsCyRRGFTUPCc3Ah0OwJal0PjijGqw=="
+  "resolved" "https://registry.npmjs.org/react-native-webview/-/react-native-webview-11.17.1.tgz"
+  "version" "11.17.1"
   dependencies:
     "escape-string-regexp" "2.0.0"
     "invariant" "2.2.4"
 
-"react-native@^0.63.3", "react-native@>=0.60 <0.64", "react-native@>=0.60.4", "react-native@>=0.62.0-rc.0 <0.64.0":
+"react-native@*", "react-native@^0.63.3", "react-native@>=0.60.4", "react-native@>=0.62.0-rc.0 <0.64.0":
   "integrity" "sha512-I4kM8kYO2mWEYUFITMcpRulcy4/jd+j9T6PbIzR0FuMcz/xwd+JwHoLPa1HmCesvR1RDOw9o4D+OFLwuXXfmGw=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.63.4.tgz"
   "version" "0.63.4"
@@ -5246,7 +5246,7 @@
     "react-is" "^16.8.6"
     "scheduler" "^0.17.0"
 
-"react@^16.0.0", "react@^16.8.0 || ^17.0.0", "react@^16.8.1", "react@^16.8.3 || ^17", "react@16.13.1":
+"react@*", "react@^16.0.0", "react@^16.8.0 || ^17.0.0", "react@^16.8.1", "react@^16.8.3 || ^17", "react@16.13.1":
   "integrity" "sha512-YMZQQq32xHLX0bz5Mnibv1/LHb3Sqzngu7xstSM+vrkE5Kzr9xE0yMByK5kMoTK30YVJE61WfbxIFFvfeDKT1w=="
   "resolved" "https://registry.npmjs.org/react/-/react-16.13.1.tgz"
   "version" "16.13.1"
