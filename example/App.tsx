@@ -34,19 +34,10 @@ function App() {
     <SafeAreaView style={styles.container}>
       <KYCAID
         config={{
-          // api_url: 'https://api.kycaid.com',
-          // api_token: '***REMOVED***',
-          // form_id: '***REMOVED***',
-            // api_token: '***REMOVED***',
-            // form_id: '***REMOVED***',
-          api_url: 'https://stg-api.kycaid.com',
-          api_token: '***REMOVED***',
-          form_id: '***REMOVED***',
-          // applicant_id: '***REMOVED***',
-            // api_url: 'https://192.168.0.115:3005',
-            // api_token: '***REMOVED***',
-            // form_id: '***REMOVED***',
-            response_url: 'https://www.google.com/',
+            api_url: '<api_url>',
+            api_token: '<api_token>',
+            form_id: '<form_id>',
+            response_url: '<response_url>',
         }}
         verificationCallback={handleVerificationCallback}
       />
