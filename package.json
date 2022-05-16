@@ -1,7 +1,7 @@
 {
   "name": "@kycaid/react-native-sdk",
   "description": "KYCAID React Native SDK",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "keywords": [
     "react-native",
     "sdk",
