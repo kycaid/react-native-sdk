@@ -56,11 +56,13 @@ const KYCaidComponent: FC<Props> = ({
     }
   }
 
+  const formUrl = generatedForm?.form_url ? `${generatedForm?.form_url}?reactNative=1` : '';
+
   return (
     <WebView
       ref={() => webviewRef}
       mediaPlaybackRequiresUserAction={true}
-      source={{ uri: generatedForm?.form_url || '' }}
+      source={{ uri: formUrl || '' }}
       onNavigationStateChange={onNavigationStateChange}
     />
   );
