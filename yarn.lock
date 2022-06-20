@@ -976,6 +976,14 @@
     "@types/yargs" "^15.0.0"
     "chalk" "^4.0.0"
 
+"@kycaid/react-native-webview@^22.6.2":
+  "integrity" "sha512-gb2YWw5V9nabF8ywlGrydoP8Egfls3bqFU2qqi9VMM5fC0v1rI4IgO8KJ8EDHlGF17lwkpDPVxzqRdfwztVrrA=="
+  "resolved" "https://registry.npmjs.org/@kycaid/react-native-webview/-/react-native-webview-22.6.2.tgz"
+  "version" "22.6.2"
+  dependencies:
+    "escape-string-regexp" "2.0.0"
+    "invariant" "2.2.4"
+
 "@react-native-community/cli-debugger-ui@^4.13.1":
   "integrity" "sha512-UFnkg5RTq3s2X15fSkrWY9+5BKOFjihNSnJjTV2H5PtTUFbd55qnxxPw8CxSfK0bXb1IrSvCESprk2LEpqr5cg=="
   "resolved" "https://registry.npmjs.org/@react-native-community/cli-debugger-ui/-/cli-debugger-ui-4.13.1.tgz"
@@ -5178,14 +5186,6 @@
   "integrity" "sha512-NAnt2iGDXohE5LI7uBnLnqvLQMtzhkiAOLXTmv+qnF9Ky7xAPcX8Up/xWIhxvLVGJvuLiNc4xQLtuqDRzb4fSA=="
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-17.0.1.tgz"
   "version" "17.0.1"
-
-"react-native-webview@^11.17.1":
-  "integrity" "sha512-gGdBavATj8Mya2VYZtWtB9cgOAgVJJGlgL5mo/EO8quBeI5L3IBy2ZQolsCyRRGFTUPCc3Ah0OwJal0PjijGqw=="
-  "resolved" "https://registry.npmjs.org/react-native-webview/-/react-native-webview-11.17.1.tgz"
-  "version" "11.17.1"
-  dependencies:
-    "escape-string-regexp" "2.0.0"
-    "invariant" "2.2.4"
 
 "react-native@*", "react-native@^0.63.3", "react-native@>=0.60.4", "react-native@>=0.62.0-rc.0 <0.64.0":
   "integrity" "sha512-I4kM8kYO2mWEYUFITMcpRulcy4/jd+j9T6PbIzR0FuMcz/xwd+JwHoLPa1HmCesvR1RDOw9o4D+OFLwuXXfmGw=="

@@ -4,7 +4,7 @@ require_relative '../../node_modules/react-native/scripts/react_native_pods'
 require_relative '../../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
 target 'Sdk' do
-    pod 'react-native-webview', :path => "../../node_modules/react-native-webview"
+    pod 'kycaid-react-native-webview', :path => "../../node_modules/@kycaid/react-native-webview"
     pod 'RNSdk', :path => '../../'
 
     config = use_native_modules!
