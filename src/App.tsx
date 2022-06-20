@@ -17,6 +17,7 @@ export interface Config {
   api_url?: string;
   response_url?: string;
   api_token: string;
+  language?: string;
 }
 
 interface Props {
@@ -56,7 +57,7 @@ const KYCaidComponent: FC<Props> = ({
     }
   }
 
-  const formUrl = generatedForm?.form_url ? `${generatedForm?.form_url}?reactNative=1` : '';
+  const formUrl = generatedForm?.form_url ? `${generatedForm?.form_url}?reactNative=1${config.language ? `&lang=${config.language}` : ''}` : '';
 
   return (
     <WebView
@@ -71,7 +72,10 @@ const KYCaidComponent: FC<Props> = ({
       mediaCapturePermissionGrantType={'grant'}
       autoManageStatusBarEnabled={false}
       useWebView2={true}
-      source={{ uri: formUrl || '' }}
+      incognito={true}
+      source={{
+        uri: formUrl || ''
+      }}
       onNavigationStateChange={onNavigationStateChange}
     />
   );
