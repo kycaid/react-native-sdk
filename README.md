@@ -6,7 +6,7 @@ A React Native component that allows you to quickly integrate the KYCAID service
 ## Installation   
 
 ```bash
-$ npm install @kyciad/react-native-sdk
+$ npm install @kycaid/react-native-sdk
 ```
    
 ## Usage
