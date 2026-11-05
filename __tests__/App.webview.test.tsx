@@ -142,4 +142,45 @@ describe('KYCAID WebView navigation and media policy', () => {
     expect(verificationRequests()).toHaveLength(1);
     expect(verificationCallback).toHaveBeenCalled();
   });
+
+  it('retries a failed verification request before giving up', async () => {
+    mockedAxios.get.mockRejectedValueOnce(new Error('Network Error'));
+    const verificationCallback = await renderSdk();
+
+    await act(async () => {
+      navigate(RESPONSE_URL, true);
+      await new Promise((resolve) => setTimeout(resolve, 1200));
+    });
+
+    expect(verificationRequests()).toHaveLength(2);
+    expect(verificationCallback).toHaveBeenCalledWith(
+      expect.objectContaining({ verification_id: VERIFICATION_ID }),
+    );
+  });
+
+  it('fetches the verification again on the next response_url after every retry failed', async () => {
+    mockedAxios.get.mockRejectedValue(new Error('Network Error'));
+    const verificationCallback = await renderSdk();
+    verificationCallback.mockClear();
+
+    await act(async () => {
+      navigate(RESPONSE_URL, true);
+      await new Promise((resolve) => setTimeout(resolve, 1200));
+    });
+
+    expect(verificationRequests()).toHaveLength(3);
+    expect(verificationCallback).not.toHaveBeenCalled();
+
+    mockedAxios.get.mockResolvedValue({
+      data: { verification_id: VERIFICATION_ID, status: 'completed', verified: true, verifications: {} },
+    });
+    await act(async () => {
+      navigate(RESPONSE_URL, true);
+    });
+
+    expect(verificationRequests()).toHaveLength(4);
+    expect(verificationCallback).toHaveBeenCalledWith(
+      expect.objectContaining({ verification_id: VERIFICATION_ID }),
+    );
+  });
 });

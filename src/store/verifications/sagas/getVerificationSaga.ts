@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { call, put } from 'redux-saga/effects';
+import { put, retry } from 'redux-saga/effects';
 
 import {
   getVerificationData,
@@ -20,6 +20,9 @@ export const apiConfig = (token?: any) => {
   return {};
 };
 
+const VERIFICATION_REQUEST_ATTEMPTS = 3;
+const VERIFICATION_REQUEST_DELAY_MS = 500;
+
 export const getRequest = (payload: GetVerificationPayload) => {
   return axios.get(
     `${payload.api_url || 'https://api.kycaid.com'}/verifications/${payload.verification_id}`,
@@ -29,7 +32,7 @@ export const getRequest = (payload: GetVerificationPayload) => {
 
 export function* getVerificationSaga(action: GetVerificationFetch) {
   try {
-    const { data } = yield call(() => getRequest(action.payload));
+    const { data } = yield retry(VERIFICATION_REQUEST_ATTEMPTS, VERIFICATION_REQUEST_DELAY_MS, getRequest, action.payload);
 
     yield put(getVerificationData(data));
   } catch (error) {

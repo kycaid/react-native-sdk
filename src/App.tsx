@@ -1,16 +1,16 @@
 import React, { FC, ReactElement, useEffect, useRef } from 'react';
 import { Linking } from 'react-native';
 import { WebView } from '@kycaid/react-native-webview';
-import { ShouldStartLoadRequest } from '@kycaid/react-native-webview/lib/WebViewTypes';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { store } from './store/store';
-import { getOrigin, resolveNavigation } from './webview/navigationPolicy';
+import { getOrigin, NavigationRequest, resolveNavigation } from './webview/navigationPolicy';
 import {
   generateForm,
   getVerification,
   resetVerificationData,
   selectGenerateFormData,
   selectGetVerificationData,
+  selectGetVerificationError,
   VerificationData,
 } from './store';
 
@@ -35,6 +35,7 @@ const KYCaidComponent: FC<Props> = ({
   const dispatch = useDispatch();
   const generatedForm = useSelector(selectGenerateFormData);
   const verificationData = useSelector(selectGetVerificationData);
+  const verificationError = useSelector(selectGetVerificationError);
   const webviewRef = useRef();
   const requestedVerificationRef = useRef<string>();
 
@@ -48,6 +49,12 @@ const KYCaidComponent: FC<Props> = ({
       verificationCallback && verificationCallback(verificationData);
     }
   }, [verificationData?.verification_id]);
+
+  useEffect(() => {
+    if (verificationError) {
+      requestedVerificationRef.current = undefined;
+    }
+  }, [verificationError]);
 
   const requestVerification = () => {
     const verificationId = generatedForm?.verification_id;
@@ -70,7 +77,7 @@ const KYCaidComponent: FC<Props> = ({
 
   const formOrigin = getOrigin(generatedForm?.form_url || '');
 
-  const onShouldStartLoadWithRequest = (request: ShouldStartLoadRequest): boolean => {
+  const onShouldStartLoadWithRequest = (request: NavigationRequest): boolean => {
     const decision = resolveNavigation(request, {
       formOrigin,
       responseUrl: config.response_url,
