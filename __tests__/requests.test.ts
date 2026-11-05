@@ -51,6 +51,11 @@ describe('SDK request authentication', () => {
       expect(() => postRequest({ form_id: FORM_ID, applicant_id: APPLICANT_ID })).toThrow(/form_token is required/);
       expect(mockedAxios.post).not.toHaveBeenCalled();
     });
+
+    it('throws and sends nothing when form_token is set without applicant_id', () => {
+      expect(() => postRequest({ form_id: FORM_ID, form_token: FORM_TOKEN })).toThrow(/applicant_id is required/);
+      expect(mockedAxios.post).not.toHaveBeenCalled();
+    });
   });
 
   describe('GET /verifications/{id}', () => {

@@ -35,6 +35,7 @@ const response = await fetch(`https://api.kycaid.com/forms/${FORM_ID}/urls`, {
     },
     body: JSON.stringify({ applicant_id: applicantId }),
 });
+if (!response.ok) throw new Error(`KYCAID form URL request failed: ${response.status}`);
 const { form_token } = await response.json();
 // return { form_token, form_id: FORM_ID, applicant_id: applicantId } to the app
 ```
