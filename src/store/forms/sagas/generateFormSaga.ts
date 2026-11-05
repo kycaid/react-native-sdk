@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { call, put } from 'redux-saga/effects';
+import { apiConfig } from '../../../api/auth';
 import { Config } from '../../../App';
 
 import {
@@ -8,26 +9,16 @@ import {
   GenerateFormFetch,
 } from '../actions';
 
-export const apiConfig = (token?: any) => {
-  if (token) {
-    return {
-      headers: {
-        'Authorization': 'Token ' + token,
-      },
-    };
-  }
-
-  return {};
-};
-
 export const postRequest = (config: Config) => {
+  const requestConfig = apiConfig(config);
+
   return axios.post(
     `${config.api_url || 'https://api.kycaid.com'}/forms/${config.form_id}/urls`,
     {
       form_id: config.form_id,
       applicant_id: config.applicant_id || null
     },
-    apiConfig(config.api_token),
+    requestConfig,
   );
 };
 
@@ -37,6 +28,8 @@ export function* generateFormSaga(action: GenerateFormFetch) {
 
     yield put(generateFormData(data));
   } catch (error) {
+    console.log(`Error during generate form url: ${error.message}`);
+
     yield put(generateFormError(error));
   }
 }
