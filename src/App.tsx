@@ -1,13 +1,16 @@
 import React, { FC, ReactElement, useEffect, useRef } from 'react';
+import { Linking } from 'react-native';
 import { WebView } from '@kycaid/react-native-webview';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { store } from './store/store';
+import { getOrigin, NavigationRequest, resolveNavigation } from './webview/navigationPolicy';
 import {
   generateForm,
   getVerification,
   resetVerificationData,
   selectGenerateFormData,
   selectGetVerificationData,
+  selectGetVerificationError,
   VerificationData,
 } from './store';
 
@@ -32,7 +35,9 @@ const KYCaidComponent: FC<Props> = ({
   const dispatch = useDispatch();
   const generatedForm = useSelector(selectGenerateFormData);
   const verificationData = useSelector(selectGetVerificationData);
+  const verificationError = useSelector(selectGetVerificationError);
   const webviewRef = useRef();
+  const requestedVerificationRef = useRef<string>();
 
   useEffect(() => {
     dispatch(generateForm(config));
@@ -45,16 +50,46 @@ const KYCaidComponent: FC<Props> = ({
     }
   }, [verificationData?.verification_id]);
 
+  useEffect(() => {
+    if (verificationError) {
+      requestedVerificationRef.current = undefined;
+    }
+  }, [verificationError]);
+
+  const requestVerification = () => {
+    const verificationId = generatedForm?.verification_id;
+
+    if (verificationId && requestedVerificationRef.current !== verificationId) {
+      requestedVerificationRef.current = verificationId;
+      dispatch(getVerification({
+        api_url: config.api_url,
+        api_token: config.api_token,
+        verification_id: verificationId
+      }));
+    }
+  }
+
   const onNavigationStateChange = (event: any) => {
     if (event?.url === config.response_url) {
-      if (generatedForm?.verification_id) {
-        dispatch(getVerification({
-          api_url: config.api_url,
-          api_token: config.api_token,
-          verification_id: generatedForm.verification_id
-        }));
-      }
+      requestVerification();
     }
+  }
+
+  const formOrigin = getOrigin(generatedForm?.form_url || '');
+
+  const onShouldStartLoadWithRequest = (request: NavigationRequest): boolean => {
+    const decision = resolveNavigation(request, {
+      formOrigin,
+      responseUrl: config.response_url,
+    });
+
+    if (decision === 'complete') {
+      requestVerification();
+    } else if (decision === 'external') {
+      Linking.openURL(request.url).catch(() => undefined);
+    }
+
+    return decision === 'allow';
   }
 
   const formUrl = generatedForm?.form_url ? `${generatedForm?.form_url}?reactNative=1${config.language ? `&lang=${config.language}` : ''}` : '';
@@ -69,13 +104,14 @@ const KYCaidComponent: FC<Props> = ({
       mediaPlaybackRequiresUserAction={false}
       startInLoadingState={true}
       allowsFullscreenVideo={true}
-      mediaCapturePermissionGrantType={'grant'}
+      mediaCapturePermissionGrantType={'grantIfSameHostElseDeny'}
       autoManageStatusBarEnabled={false}
       useWebView2={true}
       incognito={true}
       source={{
         uri: formUrl || ''
       }}
+      onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
       onNavigationStateChange={onNavigationStateChange}
     />
   );
