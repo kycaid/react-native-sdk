@@ -16,7 +16,8 @@ export interface Config {
   applicant_id?: string;
   api_url?: string;
   response_url?: string;
-  api_token: string;
+  form_token?: string;
+  api_token?: string;
   language?: string;
 }
 
@@ -50,6 +51,7 @@ const KYCaidComponent: FC<Props> = ({
       if (generatedForm?.verification_id) {
         dispatch(getVerification({
           api_url: config.api_url,
+          form_token: config.form_token,
           api_token: config.api_token,
           verification_id: generatedForm.verification_id
         }));
