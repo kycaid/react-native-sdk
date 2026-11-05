@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { call, put } from 'redux-saga/effects';
 
+import { formTokenRequestConfig } from '../../../api/formToken';
 import {
   getVerificationData,
   getVerificationError,
@@ -8,22 +9,12 @@ import {
   GetVerificationPayload,
 } from '../actions';
 
-export const apiConfig = (token?: any) => {
-  if (token) {
-    return {
-      headers: {
-        'Authorization': 'Token ' + token,
-      },
-    };
-  }
-
-  return {};
-};
-
 export const getRequest = (payload: GetVerificationPayload) => {
+  const requestConfig = formTokenRequestConfig(payload.form_token);
+
   return axios.get(
     `${payload.api_url || 'https://api.kycaid.com'}/verifications/${payload.verification_id}`,
-    apiConfig(payload.api_token),
+    requestConfig,
   );
 };
 

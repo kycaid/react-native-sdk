@@ -35,8 +35,9 @@ function App() {
       <KYCAID
         config={{
             api_url: '<api_url>',
-            api_token: '<api_token>',
+            form_token: '<form_token>',
             form_id: '<form_id>',
+            applicant_id: '<applicant_id>',
             response_url: '<response_url>',
         }}
         verificationCallback={handleVerificationCallback}
