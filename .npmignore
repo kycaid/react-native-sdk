@@ -1,6 +1,7 @@
 example/
 __tests__/
 */build/
+tmp/
 
 # OSX
 #
